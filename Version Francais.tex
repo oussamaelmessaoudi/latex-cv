@@ -1,0 +1,397 @@
+\documentclass[a4paper,11pt]{article}
+
+% Language and encoding
+\usepackage[french]{babel}
+
+% Page layout
+\usepackage[margin=1in]{geometry}
+
+% Typography
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+% Colors and links
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% Tables
+\usepackage{tabularx}
+\usepackage{array}
+
+\usepackage{fontspec}
+
+\usepackage{multicol}
+\usepackage{xspace}
+\usepackage{enumitem}
+
+\titlespacing*{\section}{0pt}{1.5ex plus .1ex minus .1ex}{1.5ex plus .1ex}
+
+\newfontfamily\montserratBold{Montserrat}[
+  Path = ./fonts/,
+  Extension = .ttf,
+  UprightFont = *-SemiBold,
+  BoldFont = *-Bold,
+  ItalicFont = *-MediumItalic,
+  BoldItalicFont = *-BoldItalic,
+  Ligatures = TeX,
+  Scale = 1.0
+]
+
+% Font settings
+\setmainfont{Montserrat}[
+  Path = ./fonts/,
+  Extension = .ttf,
+  UprightFont = *-Medium,
+  BoldFont = *-SemiBold,
+  ItalicFont = *-MediumItalic,
+  BoldItalicFont = *-SemiBoldItalic,
+  Ligatures = TeX,
+  Scale = 1.0
+]
+
+\geometry{left=0.7cm, right=0.7cm, top=0.7cm, bottom=0.7cm}
+
+% Custom commands
+\newcommand{\resumetitle}[1]{{\fontsize{15.4pt}{13pt}\selectfont\addfontfeatures{LetterSpace=12.0}\montserratBold\textbf{#1}\xspace}}
+
+\newcommand{\resumeprofession}[1]{{\fontsize{7.4pt}{20.8pt}\selectfont\addfontfeatures{LetterSpace=10.0}#1\xspace}}
+
+\newcommand{\sectiontitle}[1]{{\fontsize{7.2pt}{7.6pt}\selectfont\montserratBold\addfontfeatures{LetterSpace=2.0}\textbf{#1}\xspace}}
+
+\newcommand{\experiencetitle}[1]{{\fontsize{7.1pt}{10.2pt}\selectfont\bfseries\montserratBold\addfontfeatures{LetterSpace=3.0}\textbf{#1}\xspace}}
+
+\newcommand{\para}[1]{{\fontsize{6.1pt}{9.792pt}\selectfont\addfontfeatures{LetterSpace=0.8}\textbf{#1}\xspace}}
+
+\newcommand{\paraitalic}[1]{{\fontsize{6.1pt}{10.492pt}\selectfont\addfontfeatures{LetterSpace=4.0}\textit{#1}\xspace}}
+
+\newcommand{\linkfont}[1]{{\fontsize{6.1pt}{10.492pt}\selectfont\addfontfeatures{LetterSpace=1.0}\textit{\underline{#1}}\xspace}}
+
+% Custom colors
+\definecolor{customblack}{HTML}{111517}
+\definecolor{customgray}{HTML}{6A6868}
+\definecolor{customwhite}{HTML}{F4F4F4}
+\definecolor{customblue}{HTML}{6A5EEF}
+
+\newcommand{\customlink}[2]{\href{#1}{\colorbox{customwhite}{\linkfont{#2}}}}%
+\newcommand{\customball}[1]{\hspace{3pt}\textcolor{customgray}{·}\hspace{3pt}{#1}}%
+\newcommand{\customballopara}[2]{\hspace{3pt}\raisebox{-0.12ex}{\textcolor{customgray}{\textbullet}\hspace{3pt}{\para{\color{#1}#2}}}}%
+
+\newcommand{\firstskill}[1]{\hspace{3pt}{\para{\color{customgray}#1}}}%
+\newcommand{\skill}[1]{\para{\color{customgray}#1}}%
+\newcommand{\lang}[1]{\paraitalic{\color{customblack}#1}}%
+\newcommand{\langseparator}{\hspace{2pt}\fontsize{5pt}{9pt}\textcolor{customgray}{,}\hspace{2pt}}%
+
+\newcommand{\str}[1]{%
+  {\color{customblack}\textbf{#1}}%
+}
+\newcommand{\customcol}[2]{%
+  \begin{tabularx}{\linewidth}{@{}p{200pt}@{}X@{}}%
+    \para{\color{customblack}#1} & #2%
+  \end{tabularx}%
+}
+
+\newcommand{\customcolnarrow}[2]{%
+  \begin{tabularx}{\linewidth}{@{}p{155pt}@{}X@{}}%
+    \para{\color{customblack}#1}&#2%
+  \end{tabularx}%
+}
+\newcommand{\sectioncontainer}[2]{%
+  \sectiontitle{#1}\\[1.1ex]%
+  \begin{minipage}{\linewidth}%
+	#2%
+  \end{minipage}%
+}
+
+\newcommand{\sectioncontainerrow}[2]{%
+\begin{minipage}[t]{\dimexpr\linewidth-10pt\relax}%
+\begin{tabular}{@{}p{56pt}l@{}}%
+\sectiontitle{\color{customblack}#1} & #2%
+\end{tabular}%
+\end{minipage}%
+}
+\newcommand{\sectioncontainerdoublerow}[4]{%
+\begin{tabular}{@{}p{60pt}p{90pt}p{50pt}p{\linewidth}@{}}%
+  \sectiontitle{\color{customblack}#1} & #2 & \sectiontitle{\color{customblack}#3} & #4%
+\end{tabular}%
+}
+\newcommand{\experiencecontainer}[5]{%
+  \experiencetitle{#1}#2\\[0.2ex]% title and location
+  #3% Engagements
+  #4% Tasks
+  #5% Skills
+}
+\newcommand{\experiencecontainerwithoutSkill}[4]{%
+  \experiencetitle{#1}#2\\[0.2ex]% title and location
+  #3% Engagements
+  #4% Tasks
+}
+
+\newlist{myitemize}{itemize}{1}
+
+\setlist*[myitemize,1]{
+  label=\raisebox{-0.18ex}{\textbullet},
+  leftmargin=3mm,
+  labelsep=0.5em,
+  topsep=0em,
+  itemsep=0em,
+  parsep=0em,
+  partopsep=0em,
+  itemindent=0em,
+  listparindent=0em,
+  labelwidth=0em,
+  itemindent=0em,
+  parsep=0em,
+}
+
+% Document settings
+\setlength{\parindent}{0pt}
+\pagecolor{customwhite}
+\color{customblack}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=customblack,
+    linkcolor=customblue,
+    citecolor=customblack,
+    filecolor=customblack,
+	pdfnewwindow=true,
+	pdfstartview={XYZ null null 1},
+    pdftitle={Mohamed Amine SAYAGH \-- Développeur Logiciel \-- CV},
+    pdfauthor={Mohamed Amine SAYAGH},
+    pdfsubject={CV},
+}
+
+\pagestyle{empty}
+\linespread{0.8}
+
+\begin{document}
+
+\begin{center}%
+	\label{sec:header}\linespread{1}\selectfont
+	\resumetitle{Oussama ELMESSAOUDI}\\
+	\resumeprofession{\color{customgray}Développeur IoT et Systèmes Embarqués | Backend Java (Spring Boot, Microservices)}\\
+\end{center}
+\setlength{\columnsep}{0.4cm}{\raggedcolumns}
+\raggedcolumns% Réduire la marge sur chaque colonne
+\renewcommand{\arraystretch}{1.1}% Ajuster cette valeur pour augmenter/réduire l'espacement des lignes
+\begin{multicols}{3}%
+	\label{sec:contact}\begin{tabularx}{\linewidth}{@{}Xr@{}}%
+		\para{\color{customgray}Email :}      & \customlink{mailto:oussamaelmessaoudi17@gmail.com?subject=Demande concernant le CV}{oussamaelmessaoudi17@gmail.com} \\%
+		\para{\color{customgray}Téléphone(Ma) :} & \customlink{tel:+212777506441}{(+212) 777\--506441}                                   \\%
+	\end{tabularx}
+	\begin{tabularx}{\linewidth}{@{}Xr@{}}%
+		\para{\color{customgray}LinkedIn :} & \customlink{https://www.linkedin.com/in/usama-elmessaoudi/}{linkedin.com/in/usama-elmessaoudi} \\%
+		\para{\color{customgray}GitHub :}   & \customlink{https://github.com/oussamaelmessaoudi}{github.com/oussamaelmessaoudi}                    \\%
+	\end{tabularx}
+	\begin{tabularx}{\linewidth}{@{}Xr@{}}%
+		\para{\color{customgray}Langages de programmation :} & \para{\color{customgray}Java, C/ C++, Python} \\[0.6ex]
+	\end{tabularx}
+\end{multicols}
+\sectioncontainer{PROFILE}{%
+\label{sec:summary}\vspace{0.1em}\para{\color{customgray}Étudiant en \str{5e année Master parcours d’excellence} en ingénierie informatique et systèmes embarqués, à la recherche d’un \str{stage PFE à partir de février 2025}. Passionné par la \str{programmation Java} et \str{Spring Boot}, avec un fort intérêt pour l’\str{architecture microservices}, la \str{conception de systèmes embarqués} et le développement d’\str{applications IoT}.}
+}\\[1.6ex]%
+
+
+\sectioncontainer{FORMATION}{%
+	\label{sec:education}%
+	\begingroup
+		\customcol{\para{\color{customblack}Master, programme d'Excellence en Ingénierie Informatique et Systèmes Embarqués}}%
+        {\hspace{1cm}\para{\color{customgray}Université Ibn Zohr, Agadir, diplôme prévu en 2026}}\\
+        \customcol{\para{\color{customblack}Licence, programme d'Excellence en Ingénierie Informatique et Systèmes Embarqués}}{\hspace{1cm}\para{\color{customgray}Université Ibn Zohr, Agadir, 2024 - 2025}}\\%
+        \customcol{\para{\color{customblack}Diplôme Universitaire de Technologie en Génie Informatique}}{\hspace{1cm}\para{\color{customgray}Université Sultan Moulay Soulaimane, Beni Mellal, 2020 - 2022}}\\%
+
+	\endgroup%
+}\\[0ex]%
+\sectioncontainer{EXPÉRIENCES PROFESSIONNELLES}{%
+    \vspace{0.2em}
+    \label{sec:experiences}%
+
+    \experiencecontainer{%
+        \label{exp:ObservationInternship}%
+        \color{customblack}Stage d’observation
+    }{%
+        \para{\color{customgray}Département informatique}
+    }{%
+        \para{\color{customgray}Préfecture de Taroudant}%
+        \customball{\para{\color{customgray}Taroudant, Souss-Massa, Maroc · Sur site}}%
+        \customball{\paraitalic{\color{customgray}Août 2021 -- Septembre 2021}}%
+        \vspace{0.14em}%
+    }{%
+        \begin{myitemize}%
+            \item \para{\color{customgray}Développement d’une application web pour la \str{gestion des agents d’un commandement régional} en utilisant \str{Django} et \str{PostgreSQL}, réduisant les tâches manuelles de \str{40\%}.}%
+            \item \para{\color{customgray}Amélioration de l’accessibilité et de la précision des données, permettant une \str{récupération des informations 30\% plus rapide}.}%
+            \item \para{\color{customgray}\str{Renforcement} des compétences professionnelles à travers l’adaptation aux méthodes de travail, la collaboration en équipe et le développement du sens des responsabilités.}%
+        \end{myitemize}%
+        \vspace{0.14em}%
+    }{%
+        \para{\color{customblack}Compétences clés :}\hspace{2pt}%
+        \lang{Django}\langseparator{}\lang{PostgreSQL}\langseparator{}\lang{Développement Web}\langseparator{}\lang{Gestion de données}\langseparator{}\skill{Communication professionnelle}\langseparator{}\skill{Adaptabilité}%
+    }\\[1.1ex]%
+
+    \vspace{-1.2em}%
+
+    \experiencecontainer{%
+        \label{exp:TechnicalInternship}%
+        \color{customblack}Stage technique
+    }{%
+        \para{\color{customgray}Département informatique}
+    }{%
+        \para{\color{customgray}Préfecture de Taroudant}%
+        \customball{\para{\color{customgray}Taroudant, Souss-Massa, Maroc · Sur site}}%
+        \customball{\paraitalic{\color{customgray}Avril 2022 -- Juin 2022}}%
+        \vspace{0.14em}%
+    }{%
+        \begin{myitemize}%
+            \item \para{\color{customgray}\str{Conception et développement} d’une \str{application de bureau pour la gestion des tickets} en utilisant \str{Java}, \str{JavaFX} et \str{MySQL}, réduisant le temps de résolution des incidents de \str{35\%}.}%
+            \item \para{\color{customgray}\str{Perfectionnement} des compétences techniques en ingénierie logicielle et en conception d’applications métiers, contribuant à une amélioration de \str{25\% de l’efficacité des tâches}.}%
+            \item \para{\color{customgray}\str{Application} de compétences en résolution de problèmes dans un environnement informatique du secteur public, renforçant l’efficacité et les connaissances pratiques.}%
+        \end{myitemize}%
+        \vspace{0.14em}%
+    }{%
+        \para{\color{customblack}Compétences clés :}\hspace{2pt}%
+        \lang{Java}\langseparator{}\lang{JavaFX}\langseparator{}\lang{MySQL}\langseparator{}\lang{Travail en équipe}\langseparator{}\skill{Ingénierie logicielle}\langseparator{}\skill{Applications métiers}\langseparator{}\skill{Informatique du secteur public}%
+    }\\[1.1ex]%
+    \experiencecontainer{%
+    \label{exp:Code212Internship}%
+    \color{customblack}Stage technique
+}{%
+    \para{\color{customgray}Département informatique}
+}{%
+    \para{\color{customgray}Code212}%
+    \customball{\para{\color{customgray}Agadir, Souss-Massa, Maroc · Sur site}}%
+    \customball{\paraitalic{\color{customgray}Octobre 2025 -- Présent}}%
+    \vspace{0.14em}%
+}{%
+    \begin{myitemize}%
+        \item \para{\color{customgray}Conception et développement d'une \str{plateforme de gestion des diplômes} en \str{Java} en utilisant le \str{framework Spring Boot}, permettant la gestion et le suivi des diplômes de manière centralisée et sécurisée.}%
+        \item \para{\color{customgray}Application de pratiques \str{DevOps} pour déploiement et tests continus, et amélioration de l’efficacité des processus de gestion académique.}%
+    \end{myitemize}%
+    \vspace{0.14em}%
+}{%
+    \para{\color{customblack}Compétences clés :}\hspace{2pt}%
+    \lang{Java}\langseparator{}\lang{Spring Boot}\langseparator{}\lang{Plateformes Web}\langseparator{}\lang{Gestion académique}\langseparator{}\skill{Développement Full Stack}\langseparator{}\skill{DevOps}\langseparator{}\skill{Travail en équipe}%
+}\\[1.1ex]%
+
+}\\[-1ex]%
+
+\sectioncontainer{COMPÉTENCES}{\label{sec:skills}
+
+    \customcol{Services Cloud}{%
+        \firstskill{AWS IoT}\langseparator{}\skill{Azure IoT}\langseparator{}\skill{Github Codespaces}\langseparator{}\skill{Vercel}
+    }
+
+    \customcol{Conteneurisation et Orchestration}{%
+        \firstskill{Docker}\langseparator{}\skill{Docker Compose}\langseparator{}\skill{Kubernetes}
+    }
+
+    \customcol{Langages de programmation}{%
+        \firstskill{Java}\langseparator{}\skill{Embedded C / C++}\langseparator{}\skill{Python}\langseparator{}\skill{SQL}\langseparator{}\skill{VHDL}\langseparator{}\skill{Assembleur}
+    }
+
+    \customcol{Calcul distribué / Big Data}{%
+        \firstskill{Microservices}\langseparator{}\skill{Message brokers (Kafka, RabbitMQ)}\langseparator{}\skill{Hadoop}\langseparator{}\skill{Protocols: MQTT, HTTP/HTTPS, CoAP}
+    }
+
+    \customcol{Front-end / Back-end}{%
+        \firstskill{React / Next.js}\langseparator{}\skill{Tailwind}\langseparator{}\skill{Angular}\langseparator{}\skill{Spring Boot}\langseparator{}\skill{Django}
+    }
+
+    \customcol{Bases de données}{%
+        \firstskill{MySQL}\langseparator{}\skill{MongoDB}\langseparator{}\skill{PostgreSQL}\langseparator{}\skill{Redis}
+    }
+
+    \customcol{Contrôle de version et CI/CD}{%
+        \firstskill{Git}\langseparator{}\skill{GitHub}\langseparator{}\skill{GitHub Actions}
+    }
+
+    \customcol{Pratiques de test}{%
+        \firstskill{Unit Testing (Jest)}\langseparator{}\skill{Integration Testing (cURL, Postman)}\langseparator{}\skill{API Documentation (Swagger UI)}
+    }
+
+    \customcol{Machine Learning}{%
+        \firstskill{Python (scikit-learn, pandas, numpy)}\langseparator{}\skill{Data Preprocessing}\langseparator{}\skill{Supervised / Unsupervised Learning}\langseparator{}\skill{Model Evaluation}
+    }
+
+    \customcol{Méthodologies et Standards}{%
+        \firstskill{Agile}\langseparator{}\skill{SOLID}\langseparator{}\skill{Clean Code}\langseparator{}\skill{Système Distribué}\langseparator{}\skill{Serverless}\langseparator{}\skill{Pub/Sub Systems}\langseparator{}\skill{System Integration}\langseparator{}\skill{Embedded Design Patterns}\langseparator{}\skill{Conception Matérielle}\langseparator{}\skill{Problem Solving}
+    }
+
+    \customcol{Design et UI/UX}{%
+        \firstskill{UI/UX}\langseparator{}\skill{Design Thinking}\langseparator{}\skill{Photoshop}\langseparator{}\skill{Illustrator}\langseparator{}\skill{Figma}
+    }
+
+    \customcol{Outils}{%
+        \firstskill{Quartus}\langseparator{}\skill{ModelSim}\langseparator{}\skill{Proteus}\langseparator{}\skill{Arduino IDE}\langseparator{}\skill{MatLAB}\langseparator{}\skill{Micro C Pro}\langseparator{}\skill{Grafana}\langseparator{}\skill{Hibernate}\langseparator{}\skill{ThingSpeak}\langseparator{}\skill{Blynk}\langseparator{}\skill{Node-RED}\langseparator{}\skill{Talend}
+    }
+
+}\\[-0.1ex]%
+\sectioncontainer{PROJETS}{\label{sec:projects}%
+    
+    \begingroup%
+    \label{proj:code-wrangler}%
+    \customcol{\experiencetitle{\color{customblack}POS \& Stock Management System}}{\paraitalic{\hspace{2em}\color{customgray}Avril 2022 -- Juin 2022}}%
+    \vspace{0.2em}
+    \begin{myitemize}
+        \item \para{\color{customgray}Développement d'un \str{POS & Stock Management System} en Java utilisant \str{JavaFX} avec \str{SceneBuilder} et \str{CSS} pour les interfaces, en collaboration avec un \str{supermarché à Beni Mellal}, intégrant un \str{système de lecture de codes-barres} pour la gestion des ventes et \str{l'inventaire en temps réel}.}
+    \end{myitemize}
+    \endgroup%
+    \vspace{0.6em}
+    
+    \begingroup%
+    \label{proj:zec}%
+    \customcol{\experiencetitle{\color{customblack}IntelliGlow: Système de Surveillance de l'Éclairage}}{\paraitalic{\hspace{2em}\color{customgray}Février 2025 -- Avril 2025} \customball{\linkfont{\href{https://github.com/oussamaelmessaoudi/Systeme-de-controle-de-la-lumiere-dans-un-batiment}{Voir le dépôt du projet}}}}%
+    \vspace{0.2em}
+    \begin{myitemize}
+        \item \para{\color{customgray}Développement d'un \str{Système de Surveillance de l'Éclairage pour un bâtiment} utilisant \str{Django}, \str{React}, et \str{PostgreSQL}, intégrant des \str{capteurs électroniques}, et implémentant \str{JWT authentication}, \str{multi-user roles}, \str{RPC communication}, \str{statistiques d'utilisation}, et \str{notifications par email} pour le suivi des problèmes, offrant \str{un contrôle en temps réel} et une surveillance via une interface web responsive.}
+    \end{myitemize}
+    \endgroup%
+
+    
+    
+}\\[1.9ex]%
+
+
+\newpage
+\vspace{0.7em}
+    
+    \begingroup%
+    \label{proj:chifaanet}%
+    \customcol{\experiencetitle{\color{customblack}ChifaaNET: Plateforme de Gestion des Patients}}{\paraitalic{\hspace{2em}\color{customgray}Juin 2025 -- Présent} \customball{\linkfont{\href{https://github.com/oussamaelmessaoudi/ChifaaNet-Patients-Management-Platform}{Voir le dépôt du projet}}}}%
+    \vspace{0.7em}
+    \begin{myitemize}
+        \item \para{\color{customgray}Développement d'une \str{Plateforme de Gestion des Patients} utilisant \str{Spring Boot, Docker, gRPC, Kafka, et AWS (via CloudFormation \& LocalStack)}, implémentant les services \str{CRUD pour les patients}, un microservice de facturation avec \str{gRPC communication}, un service d'analytics via \str{Kafka events}, et un service d'authentification avec \str{JWT} intégré dans un \str{API Gateway}. Conception et déploiement d'une \str{architecture microservices} avec \str{tests d'intégration}, documentation OpenAPI et infrastructure \str{cloud-ready} pour une gestion de santé scalable.}
+    \end{myitemize}
+    \endgroup%
+    \begingroup%
+    \vspace{0.7em}
+\label{proj:voitureautonome}%
+\customcol{\experiencetitle{\color{customblack}Voiture Autonome Évitant les Obstacles}}{\paraitalic{\hspace{2em}\color{customgray}Février 2025}}%
+
+\begin{myitemize}
+    \item \para{\color{customgray}Conception et développement d’une \str{voiture autonome} basée sur une \str{ESP32}, capable d’éviter les obstacles à l’aide de \str{capteurs infrarouges} et \str{ultrasoniques}. Intégration d’un \str{pont en H} pour le contrôle des moteurs, communication \str{Bluetooth} pour le pilotage manuel, et \str{interface web} pour la surveillance et le contrôle à distance. Implémentation d’un \str{mode automatique} pour la détection et l’évitement d’obstacles en temps réel, combinant \str{programmation embarquée}, \str{contrôle moteur}, et \str{IoT}.}
+\end{myitemize}
+\endgroup%
+\vspace{0.7em}
+\begingroup%
+\label{proj:iotparceltracking}%
+\customcol{\experiencetitle{\color{customblack}TrackSecure : Système IoT de suivi des colis}}{\paraitalic{\hspace{2em}\color{customgray}Octobre 2025 -- Présent} \customball{\linkfont{\href{https://github.com/oussamaelmessaoudi/parcel-tracking-iot-based}{Voir le dépôt du projet}}}}%
+\vspace{0.2em}
+\begin{myitemize}
+    \item \para{\color{customgray}Développement d’un \str{système IoT de suivi des colis} utilisant un \str{module GPS} et une \str{passerelle ESP32} communiquant via \str{MQTT/CoAP sur TLS}. Conception d’un \str{IoT Gateway Service} en \str{Spring Boot} pour l’authentification des appareils (certificats X.509), la validation et la traduction des messages vers une \str{architecture d’événements Kafka}. Mise en place de microservices pour le \str{traitement des événements}, la \str{gestion des alertes}, et le \str{suivi en temps réel} via APIs \str{REST/gRPC}. Intégration de \str{Apache Spark} pour le traitement distribué des données et la génération de \str{prédictions ML} sur les retards ou anomalies de livraison. Stockage des données dans \str{PostgreSQL} et \str{Redis} pour la mise en cache et la performance.}
+\end{myitemize}
+
+\vspace{0.8em}
+\sectioncontainerrow{Certifications}{%
+	\label{sec:achievement}%
+    \begin{minipage}{\linewidth}
+		\customlink{https://www.credly.com/badges/6e5eb9e1-2ccf-4e3e-a372-4b16d5f8df44}{Introduction to IoT}%
+		\customball{\customlink{https://www.hackerrank.com/certificates/b41a0cd70198}{Problem Solving}}%
+		\customball{\customlink{https://brm-certview.oracle.com/ords/certview/ecertificate?ssn=OC5908529&trackId=APEX24CDOCP&key=7756d869bc972be813433fad88ef7370d60e3167}{Oracle Cloud Developper}}%
+		\customball{\customlink{https://www.hackerrank.com/certificates/iframe/2dd0da6ef044}{SQL (Advanced)}}%
+		\customball{\customlink{https://nextjs.org/learn/certificate?course=react-foundations&user=82105&certId=react-foundations-82105-1753023935907}{React}}%
+		\customball{\customlink{https://www.hackerrank.com/certificates/647eff5bf692}{Software Engineer}}%
+		\customball{\customlink{https://www.scholarhat.com/certificate/verify}{Git & Github}}%
+	\end{minipage}%
+}\\[0.7ex]%
+\sectioncontainerdoublerow{LANGUES}{\para{\color{customgray}Anglais}\customball{\para{\color{customgray}Français}}\customball{\para{\color{customgray}Arabe}}}{ACTIVITÉS}{\para{\color{customgray}Rédaction technique (voir \customlink{https://www.linkedin.com/in/usama-elmessaoudi/recent-activity/all/}{LinkedIn} ou \customlink{https://medium.com/@oussamaelmessaoudi17}{Medium})}\customball{\para{\color{customgray}Contributeur open source}}}
+\end{document}
